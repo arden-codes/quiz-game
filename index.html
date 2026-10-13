@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Game | Arden's Arcade</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+    <script src="dropdown.js" defer></script>
+</head>
+
+<body>
+    <main class="container">
+        <!-- View: Start Screen -->
+        <section class="screen active" id="start-screen">
+            <h2>Quiz time.</h2>
+            <p>Pick a topic, choose your level, and test your knowledge.</p>
+
+            <label for="category">Category</label>
+            <select id="category">
+                <option value="">Any Category</option>
+            </select>
+
+            <label for="difficulty">Difficulty</label>
+            <select id="difficulty">
+                <option value="">Mixed Difficulty</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+            </select>
+
+            <label for="question-count">Number of Questions</label>
+            <select id="question-count">
+                <option value="5" selected>5 Questions</option>
+                <option value="10">10 Questions</option>
+                <option value="15">15 Questions</option>
+                <option value="20">20 Questions</option>
+            </select>
+
+            <button id="start-btn" class="btn">Start Quiz</button>
+
+            <p id="loading-message" role="status"></p>
+        </section>
+
+        <!-- View: Quiz Screen -->
+        <section class="screen" id="quiz-screen">
+
+            <div class="quiz-header">
+                <h2 id="question-text">Question goes here</h2>
+
+                <div class="quiz-info">
+                    <p>Question <span id="current-question">1</span> of <span id="total-questions">10</span></p>
+                    <p>Score: <span id="score">0</span></p>
+                </div>
+            </div>
+
+            <div class="options-container" id="options-container">
+                <!-- Option buttons will be inserted here using js -->
+                <button class="option-btn">London</button>
+                <button class="option-btn">London</button>
+                <button class="option-btn">London</button>
+                <button class="option-btn">London</button>
+            </div>
+
+            <div class="progress-bar">
+                <div class="progress" id="progress"></div>
+            </div>
+        </section>
+
+        <!-- View: Result Screen -->
+        <section class="screen" id="result-screen">
+            <h2>Quiz Result</h2>
+            <div class="result-info">
+                <p>You scored <span id="final-score">0</span> out of <span id="max-score">0</span></p>
+                <div id="result-message">Good Job!</div>
+            </div>
+
+            <button id="restart-btn" class="btn">Play another Quiz</button>
+        </section>
+
+    </main>
+</body>
+
+</html>
