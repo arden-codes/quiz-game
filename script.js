@@ -215,13 +215,35 @@ async function getQuestions(params) {
     const response = await fetch(apiURl);
 
     if (!response.ok) {
-        throw new Error("Failed to fetch questions")
+        throw new Error(
+            "We're having trouble loading questions right now. Please try again shortly."
+        )
     };
 
     const data = await response.json();
 
     if (data.response_code !== 0) {
-        throw new Error("No question availabe. Change the settings and try again")
+        switch (data.response_code) {
+            case 1:
+                throw new Error(
+                    "Not enough questions available for these settings. Try reducing the question count or changing the difficulty."
+                );
+
+            case 2:
+                throw new Error(
+                    "Invalid quiz settings. Please check your selections and try again."
+                );
+
+            case 5:
+                throw new Error(
+                    "Too many requests. Please wait a moment before trying again."
+                );
+
+            default:
+                throw new Error(
+                    "We couldn't prepare your quiz. Please try again."
+                );
+        }
     }
 
     const questions = data.results;
@@ -296,7 +318,7 @@ async function startQuiz() {
     } catch (error) {
         loadingMessageEl.classList.add("error");
         loadingMessageEl.textContent = error.message;
-        
+
         startBtn.disabled = false;
 
     } finally { };
