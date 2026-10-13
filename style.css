@@ -225,6 +225,11 @@ label[for="question-count"],
     color: var(--muted);
 }
 
+#loading-message.error {
+    font-size: 1rem;
+    color: var(--bad);
+}
+
 #loading-message:empty {
     display: none;
 }

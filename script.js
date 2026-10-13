@@ -221,7 +221,7 @@ async function getQuestions(params) {
     const data = await response.json();
 
     if (data.response_code !== 0) {
-        throw new Error("No question availabe.")
+        throw new Error("No question availabe. Change the settings and try again")
     }
 
     const questions = data.results;
@@ -263,6 +263,7 @@ async function startQuiz() {
     }
 
     startBtn.disabled = true;
+    loadingMessageEl.classList.remove("error");
     loadingMessageEl.textContent = "Loading questions..."
 
     try {
@@ -293,7 +294,11 @@ async function startQuiz() {
         showQuestion();
 
     } catch (error) {
+        loadingMessageEl.classList.add("error");
         loadingMessageEl.textContent = error.message;
+        
+        startBtn.disabled = false;
+
     } finally { };
 }
 
