@@ -4,6 +4,10 @@ A simple, interactive trivia quiz game built with HTML, CSS, and vanilla JavaScr
 
 Choose a category, select a difficulty level, decide how many questions to answer, and test your knowledge.
 
+## Live Demo
+
+[Play Quiz Game](https://quizgame-byarden.netlify.app)
+
 ## Features
 
 - Choose a trivia category or play with any category.
