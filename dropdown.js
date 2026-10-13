@@ -3,6 +3,8 @@
 
     var SEARCH_THRESHOLD = 8; // show a search box when there are more options than this
 
+    var EDGE_GUARD = 28; // px from the screen edge treated as a back-swipe
+
     document.querySelectorAll("#start-screen select").forEach(enhance);
 
     function el(tag, className) {
@@ -106,8 +108,10 @@
             var room = (goUp ? rect.top : below) - 20;
             panel.style.maxHeight = Math.max(180, Math.min(320, room)) + "px";
 
+            var useSearch = !search.hidden && !window.matchMedia("(pointer: coarse)").matches;
+
             setActive(select.selectedIndex >= 0 ? select.selectedIndex : firstVisible());
-            (search.hidden ? list : search).focus({ preventScroll: true });
+            (useSearch ? search : list).focus({ preventScroll: true });
         }
 
         function close(returnFocus) {
@@ -136,7 +140,7 @@
                 items[activeIndex].classList.remove("is-active");
             }
             activeIndex = i;
-            var target = search.hidden ? list : search;
+            var target = document.activeElement === search ? search : list;
             if (i > -1 && items[i]) {
                 items[i].classList.add("is-active");
                 items[i].scrollIntoView({ block: "nearest" });
@@ -206,7 +210,7 @@
         panel.addEventListener("keydown", function (e) {
             switch (e.key) {
                 case "ArrowDown": e.preventDefault(); move(1); break;
-                case "ArrowUp":   e.preventDefault(); move(-1); break;
+                case "ArrowUp": e.preventDefault(); move(-1); break;
                 case "Home":
                     if (search.hidden) { e.preventDefault(); setActive(firstVisible()); }
                     break;
@@ -260,6 +264,7 @@
         });
 
         document.addEventListener("pointerdown", function (e) {
+            if (e.clientX < EDGE_GUARD || e.clientX > window.innerWidth - EDGE_GUARD) return;
             if (!box.contains(e.target)) close(false);
         });
 
